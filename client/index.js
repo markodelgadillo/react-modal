@@ -51,14 +51,36 @@ class Modal extends React.Component {
     super(props)
     this.handleModalClick = this.handleModalClick.bind(this)
     this.handleRemoveClick = this.handleRemoveClick.bind(this)
+    this.state = { isRemoved: true }
   }
 
-  handleModalClick() {}
+  handleModalClick() {
+    this.setState({ isRemoved: true })
+  }
 
-  handleRemoveClick() {}
+  handleRemoveClick() {
+    this.setState({ isRemoved: false })
+  }
 
   render() {
-    return <Button>'Click Button for Modal'</Button>
+    const isRemoved = this.state.isRemoved
+    let onPage = null
+    if (isRemoved) {
+      onPage = (
+        <div>
+          Click to reveal modal.
+          <Button onClick={this.handleRemoveClick} />
+        </div>
+      )
+    } else {
+      onPage = (
+        <ModalBox>
+          This is a modal.
+          <ButtonTwo onClick={this.handleModalClick} />
+        </ModalBox>
+      )
+    }
+    return <div> {onPage} </div>
   }
 }
 
